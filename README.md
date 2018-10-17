@@ -7,3 +7,5 @@ I solved it and then some!
 
 - sqlite_connect: I wanted to make a database for some
 sensors.
+
+- got a bmi calculator!
