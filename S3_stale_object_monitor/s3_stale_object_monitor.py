@@ -24,13 +24,17 @@ def lambda_handler(event, context):
             old_objects.append(obj)
     
     # Create email content
-    email_body = "List of objects older than 7 days:\n"
-    for obj in old_objects:
-        email_body += f"Object: {obj['Key']}, Modified Date: {obj['LastModified']}\n"
+    email_body = "Stale Objects in S3 bucket: {} \n".format(bucket_name)\
+    +"\n"\
+    +"There are {} stale objects. \n".format(len(old_objects))\
+    +"\n"\
+    +"List of objects older than 7 days:\n"
+    for index, obj in enumerate(old_objects, start =1):
+        email_body += f"{index}. Object: {obj['Key']}, Modified Date: {obj['LastModified']}\n"
     
     # Send email using SNS
     sns.publish(
         TopicArn='my-sns-arn',
-        Subject='Old Objects Report',
+        Subject='Old S3 Objects Report',
         Message=email_body
     )
