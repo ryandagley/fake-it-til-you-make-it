@@ -1,17 +1,8 @@
 #!/usr/bin/env python3
 import os
-#from dotenv import load_dotenv
-
-# load the env file
-#print('Loading env file')
-#load_dotenv()
-
 import aws_cdk as cdk
 
 from s3_bucket_builder.s3_bucket_builder_stack import S3BucketBuilderStack
-
-print ("Creating environment")
-cdk_env = cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION'))
 
 app = cdk.App()
 S3BucketBuilderStack(app, "S3BucketBuilderStack", env=cdk_env
