@@ -1,5 +1,4 @@
 import csv
-import re
 
 def is_numeric(value):
     try:
@@ -17,7 +16,7 @@ def csv_to_markdown(csv_string, skip_commas_columns=None):
     header = next(csv_reader)
     if not header:
         return ""
-    
+
     num_columns = len(header)
 
     markdown_table = "| " + " | ".join(header) + "|\n"
@@ -41,16 +40,17 @@ def csv_to_markdown(csv_string, skip_commas_columns=None):
                     else:
                         formatted_row.append(f"{int(cell):,}")
                 else:
-                    formatted_row.append(cell)
+                    # Replace empty values with "null"
+                    formatted_row.append("null" if cell.strip() == "" else cell)
             markdown_table += "| " + " | ".join(formatted_row) + " |\n"
 
     return markdown_table
 
 csv_string = """
 name, item, number, ID, version
-jay, bird, 1, 100000, 1234567
-crow, bird, 2, 21213213, 9876543
-bluebird, bird, 200000, 343, 9999999
+jay, bird, 1, , 1234567
+crow, bird, , 21213213, 9876543
+bluebird, bird, 200000, ,
 3423423324, 2342343223, 234232.5, 32432423, 8888888
 """
 
@@ -58,5 +58,8 @@ bluebird, bird, 200000, 343, 9999999
 skip_commas_columns = ["ID", "version"]
 
 markdown_table = csv_to_markdown(csv_string, skip_commas_columns=skip_commas_columns)
+
+# Replace empty values with "null"
+markdown_table = markdown_table.replace("|   |", "| null |")
 
 print(markdown_table)
