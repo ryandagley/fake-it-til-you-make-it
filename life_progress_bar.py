@@ -1,7 +1,7 @@
 import datetime
 import tkinter as tk
 
-# Function to update the progress bars
+# Function to update the progress bars and draw vertical lines
 def update_progress_bars():
     current_datetime = datetime.datetime.now()
     time_elapsed = current_datetime - birthdate_datetime
@@ -17,6 +17,11 @@ def update_progress_bars():
     progress_bar_canvas.coords(progress_bar_lived, 0, 0, percentage_lived * canvas_width / 100, canvas_height)
     progress_bar_canvas.coords(progress_bar_remaining, canvas_width, 0,
                               canvas_width - (percentage_remaining * canvas_width / 100), canvas_height)
+
+    # Draw vertical lines every 10 years
+    for i in range(10, 76, 10):
+        x = (i / 76) * canvas_width
+        progress_bar_canvas.create_line(x, 0, x, canvas_height, fill="black")
 
     # Format the percentages to display exactly six decimal places
     formatted_percentage_lived = f"{percentage_lived:.8f}"
@@ -34,7 +39,7 @@ root = tk.Tk()
 root.title("Life Progress Bars")
 
 # Enter your birthdate in the format: YYYY-MM-DD
-birthdate_str = 'your birthdate'
+birthdate_str = '1982-10-27'
 birthdate_datetime = datetime.datetime.strptime(birthdate_str, "%Y-%m-%d")
 target_year = birthdate_datetime.year + 76
 target_datetime = datetime.datetime(target_year, birthdate_datetime.month, birthdate_datetime.day, 0, 0, 0)
@@ -45,9 +50,14 @@ percentage_label_lived.pack()
 percentage_label_remaining = tk.Label(root, text="", font=("Arial", 12))
 percentage_label_remaining.pack()
 
+# Set the size of the window
+window_width = 400  # Adjust the width as needed
+window_height = 100  # Adjust the height as needed
+root.geometry(f"{window_width}x{window_height}")
+
 # Create a canvas for the progress bars
-canvas_width = 300
-canvas_height = 20
+canvas_width = window_width - 100
+canvas_height = window_height - 80
 progress_bar_canvas = tk.Canvas(root, width=canvas_width, height=canvas_height, bg="light gray")
 progress_bar_canvas.pack()
 
@@ -55,7 +65,7 @@ progress_bar_canvas.pack()
 progress_bar_lived = progress_bar_canvas.create_rectangle(0, 0, 0, canvas_height, fill="green")
 progress_bar_remaining = progress_bar_canvas.create_rectangle(canvas_width, 0, canvas_width, canvas_height, fill="red")
 
-# Start updating the progress bars
+# Start updating the progress bars and drawing vertical lines
 update_progress_bars()
 
 # Run the main loop
