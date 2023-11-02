@@ -40,6 +40,13 @@ def subtract_percentage_from_X():
     percentage_decrease = (percentage_decrease/100)
     print(str(start_value - (start_value * percentage_decrease)))
 
+def pareto():
+    print("This will calculate the 80/20% split of X.")
+    start_value = int(input("What is the starting value? x = \n"))
+    eighty = round(start_value * .8,2)
+    twenty = round(start_value * .2,2)
+    print(str(eighty) + "/" + str(twenty) + ".  80% of " + str(start_value) + " is " + str(eighty) + ".  20% of " + str(start_value) + " is " + str(twenty) + ".")
+
 def main():
     choice = input("""
     Which calculator? \n 
@@ -48,6 +55,7 @@ def main():
     3.) What is the % increase or decrease? \n
     4.) What is X + Y%? \n
     5.) What is X - Y%? \n
+    6.) What is the 80/20 of X? \n
                     
                     
     Choice: """) 
@@ -62,9 +70,12 @@ def main():
         add_percentage_to_X()
     elif choice == '5':
         subtract_percentage_from_X()
+    elif choice == '6':
+        pareto()
     else:
         print("Invalid choice.  Try again.")
 
 main()
+
 
 
