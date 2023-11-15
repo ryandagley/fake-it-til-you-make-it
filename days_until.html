@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date Information</title>
+</head>
+<body>
+    <script>
+        // Function to calculate the date after a given number of days
+        function calculateFutureDate(days) {
+            const today = new Date();
+            const futureDate = new Date(today);
+            futureDate.setDate(today.getDate() + days);
+            return futureDate;
+        }
+
+        // Function to count the number of weekdays and weekends between two dates
+        function countWeekdaysAndWeekends(startDate, endDate) {
+            let weekdays = 0;
+            let weekends = 0;
+            const currentDate = new Date(startDate);
+
+            while (currentDate <= endDate) {
+                if (currentDate.getDay() >= 1 && currentDate.getDay() <= 5) {
+                    weekdays++;
+                } else {
+                    weekends++;
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            return { weekdays, weekends };
+        }
+
+        // Function to find federal holidays between two dates
+        function findFederalHolidays(startDate, endDate) {
+            const holidays = [
+                // Add your list of federal holidays here
+                // Example: "2023-01-01" for New Year's Day
+            ];
+
+            return holidays.filter((holiday) => {
+                const holidayDate = new Date(holiday);
+                return holidayDate >= startDate && holidayDate <= endDate;
+            });
+        }
+
+        // Prompt the user for the number of days
+        const days = parseInt(prompt("Enter the number of days from today:"));
+
+        if (!isNaN(days)) {
+            // Calculate the future date
+            const futureDate = calculateFutureDate(days);
+
+            // Determine the day of the week
+            const dayOfWeek = futureDate.toLocaleDateString("en-US", { weekday: "long" });
+
+            // Get the current date
+            const today = new Date();
+
+            // Calculate the number of weekdays and weekends
+            const { weekdays, weekends } = countWeekdaysAndWeekends(today, futureDate);
+
+            // Calculate the number of weeks
+            const weeks = Math.floor(days / 7);
+
+            // Find federal holidays between today and the future date
+            const holidaysBetweenDates = findFederalHolidays(today, futureDate);
+
+            // Display the information
+            alert(`Date after ${days} days from today: ${futureDate.toLocaleDateString()}\n` +
+                `Day of the week: ${dayOfWeek}\n` +
+                `Number of weekdays between now and then: ${weekdays}\n` +
+                `Number of weekends between now and then: ${weekends}\n` +
+                `Number of weeks between now and then: ${weeks}\n` +
+                `Federal holidays between now and then:\n${holidaysBetweenDates.join("\n")}`);
+        } else {
+            alert("Invalid input. Please enter a valid number of days.");
+        }
+    </script>
+</body>
+</html>
