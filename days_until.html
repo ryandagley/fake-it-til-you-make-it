@@ -34,7 +34,7 @@
         // Function to find federal holidays between two dates
         function findFederalHolidays(startDate, endDate) {
             const holidays = [
-                // Add your list of federal holidays here
+                // TODO: Add a list of federal holidays here
                 // Example: "2023-01-01" for New Year's Day
             ];
 
@@ -66,13 +66,18 @@
             // Find federal holidays between today and the future date
             const holidaysBetweenDates = findFederalHolidays(today, futureDate);
 
+            // Calculate non-sleeping, non-working hours (work only on weekdays)
+            const nonWorkingHoursPerDay = 24 - (7.5); // 7.5 hours sleep
+            const totalNonWorkingHours = nonWorkingHoursPerDay * weekdays;
+
             // Display the information
             alert(`Date after ${days} days from today: ${futureDate.toLocaleDateString()}\n` +
                 `Day of the week: ${dayOfWeek}\n` +
                 `Number of weekdays between now and then: ${weekdays}\n` +
                 `Number of weekends between now and then: ${weekends}\n` +
                 `Number of weeks between now and then: ${weeks}\n` +
-                `Federal holidays between now and then:\n${holidaysBetweenDates.join("\n")}`);
+                `Federal holidays between now and then:\n${holidaysBetweenDates.join("\n")}\n` +
+                `Non-sleeping, non-working hours between now and then (work only on weekdays): ${totalNonWorkingHours} hours`);
         } else {
             alert("Invalid input. Please enter a valid number of days.");
         }
