@@ -30,7 +30,8 @@
             const monthlySavings = parseFloat(document.getElementById('monthly_savings').value);
 
             const howManyMonths = (itemPrice - existingSavings) / monthlySavings;
-            document.getElementById('result').innerHTML = `It will take you ${howManyMonths.toFixed(2)} months to save up for that item.`;
+            const dailySavings = monthlySavings/31
+            document.getElementById('result').innerHTML = `It will take you ${howManyMonths.toFixed(2)} months to save up for that item. That's only ${dailySavings.toFixed(2)} per day!`;
         }
 
         // Attach the calculateMonths function to the form's submit event
