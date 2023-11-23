@@ -30,13 +30,15 @@
             const monthlySavings = parseFloat(document.getElementById('monthly_savings').value);
     
             const howManyMonths = (itemPrice - existingSavings) / monthlySavings;
-            const homManyCoffees = (itemPrice - existingSavings) / 5;
+            const howManyCoffees = (itemPrice - existingSavings) / 5;
+            const howManyFoodDeliveries = (itemPrice - existingSavings) / 40;
             const dailySavings = monthlySavings / 31;
     
             // Create a multi-line string using template literals
             const resultMessage = `It will take you ${howManyMonths.toFixed(2)} months to save up for that item.<br>` +
                                  `That's only $${dailySavings.toFixed(2)} per day!<br>` +
-                                 `Or skip about ${homManyCoffees.toFixed(0)} coffees!`
+                                 `Or skip about ${howManyCoffees.toFixed(0)} $5 coffees!<br>` +
+                                 `Or even easier, skip ${howManyFoodDeliveries.toFixed(2)} $40 food deliveries!`
     
             document.getElementById('result').innerHTML = resultMessage;
         }
